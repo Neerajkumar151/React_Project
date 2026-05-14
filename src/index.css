@@ -1,0 +1,187 @@
+:root {
+  /* Premium Indigo Palette */
+  --color-bg-main: #f8fafc;
+  --color-bg-surface: #ffffff;
+  --color-bg-sidebar: rgb(53, 37, 205);
+  --color-bg-sidebar-hover: rgb(41, 28, 161);
+  
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #64748b;
+  --color-text-inverse: #ffffff;
+  --color-text-inverse-muted: #e0e7ff;
+  
+  --color-border: #e2e8f0;
+  --color-shadow: rgba(53, 37, 205, 0.08);
+  
+  /* Typography */
+  --font-family-base: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+[data-theme='dark'] {
+  --color-bg-main: #0f172a;
+  --color-bg-surface: #1e293b;
+  --color-bg-sidebar: rgb(79, 70, 229);
+  --color-bg-sidebar-hover: rgb(67, 56, 202);
+  
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --color-text-inverse: #ffffff;
+  --color-text-inverse-muted: #e0e7ff;
+  
+  --color-border: #334155;
+  --color-shadow: rgba(0, 0, 0, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-base);
+  background-color: var(--color-bg-main);
+  color: var(--color-text-primary);
+}
+
+/* Layout */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  background-color: var(--color-bg-surface);
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px var(--color-shadow);
+  z-index: 10;
+}
+
+.dashboard-main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar {
+  background-color: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar ul {
+  list-style-type: none;
+}
+
+.sidebar li {
+  margin-bottom: 0.5rem;
+}
+
+.sidebar a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.sidebar a:hover {
+  background-color: var(--color-bg-main);
+  color: var(--color-bg-sidebar);
+}
+
+.sidebar a.active {
+  background-color: var(--color-text-inverse); /* Light indigo background */
+  color: var(--color-bg-sidebar);
+}
+
+.sidebar a .material-symbols-outlined {
+  font-size: 24px;
+}
+
+
+
+/* Custom Theme Utility Classes */
+.bg-primary { background-color: var(--color-bg-sidebar); }
+.text-primary { color: var(--color-bg-sidebar); }
+.text-on-primary { color: var(--color-bg-surface); }
+
+/* Additional semantic variables */
+.bg-primary-container { background-color: #E0E7FF; }
+.text-on-primary-container { color: #312E81; }
+.text-on-surface-variant { color: #4B5563; }
+
+.hover-text-primary:hover {
+  color: var(--color-bg-sidebar) !important;
+}
+
+/* Custom Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(1.15); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 3s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-bg-sidebar), #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* --- CUSTOM EDGE CASE MEDIA QUERIES --- */
+
+/* 1. Short Height Screens (Uneven Height) */
+/* e.g., Landscape tablets, split screens, very small laptops */
+@media (max-height: 700px) {
+  .header {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+  .sidebar {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  .sidebar a {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+  .sidebar .material-symbols-outlined {
+    font-size: 20px !important;
+  }
+}
+
+/* 2. Ultra-wide Screens (Uneven Width) */
+/* Constrain layout stretching on massive cinema displays */
+@media (min-aspect-ratio: 21/9) {
+  .dashboard-main {
+    justify-content: center;
+    background-color: var(--color-bg-main);
+  }
+  /* The main container will be capped by the max-w-screen-2xl class we add in React */
+}
