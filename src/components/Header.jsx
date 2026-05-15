@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import useTheme from '../hooks/useTheme';
 import useClickOutside from '../hooks/useClickOutside';
+import SearchInput from './ui/SearchInput';
 
 // Static notification data — move to constants/notifications.js when this feature is built.
 const notifications = [
@@ -17,6 +18,8 @@ function Header({ onMenuClick }) {
   const { isDark, toggleTheme } = useTheme();
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const notifRef = useRef(null);
+
+  const [searchQuery, setSearchQuery] = useState('');
 
   useClickOutside(notifRef, () => setIsNotifOpen(false), isNotifOpen);
 
@@ -48,21 +51,15 @@ function Header({ onMenuClick }) {
       {/* Right side controls */}
       <div className="flex items-center gap-2 md:gap-6">
         {/* Search (desktop) */}
-        <div className="relative hidden md:block">
-          <span
-            className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2"
-            style={{ fontSize: '20px', color: 'var(--color-text-secondary)' }}
-          >
-            search
-          </span>
-          <input
-            type="text"
-            className="pl-10 pr-4 py-2 border rounded-full w-[20vw] focus:ring-2 transition-all focus:ring-primary-container"
-            placeholder="Search creators, posts..."
-            style={{
-              borderColor: 'var(--color-border)',
-              backgroundColor: 'var(--color-bg-main)',
-              color: 'var(--color-text-primary)',
+        <div className="hidden md:block w-[20vw] relative z-50">
+          <SearchInput
+            value={searchQuery}
+            onChange={setSearchQuery}
+            placeholder="Search creators..."
+            style={{ borderRadius: '9999px' }}
+            onSelect={(creator) => {
+              console.log('Selected creator from Header:', creator.name);
+              // In the future, this might navigate to /creators/:id
             }}
           />
         </div>

@@ -1,11 +1,29 @@
 import React from 'react';
-import { navItems } from '../constants/navigation';
 
-/**
- * Sidebar — navigation panel.
- * Nav items are imported from constants/navigation.js.
- * Adding a new page = adding one line in constants, nothing else.
- */
+function NavItem({ id, icon, label, currentPage, onNavigate }) {
+  return (
+    <li className="relative group">
+      <a
+        href={`#${id}`}
+        onClick={(e) => {
+          e.preventDefault();
+          onNavigate(id);
+        }}
+        className={`flex items-center gap-4 cursor-pointer px-4 py-3 md:px-0 md:justify-center lg:px-4 lg:justify-start rounded-lg ${currentPage === id ? 'active' : ''}`}
+      >
+        <span className="material-symbols-outlined text-[24px] shrink-0">{icon}</span>
+        <span className="md:hidden lg:block whitespace-nowrap">{label}</span>
+      </a>
+
+      {/* Tooltip for icon-only collapsed state (md) */}
+      <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 px-3 py-1.5 bg-gray-900 text-white text-sm font-semibold rounded-md opacity-0 invisible md:group-hover:opacity-100 md:group-hover:visible lg:hidden transition-all duration-200 z-50 whitespace-nowrap shadow-xl">
+        {label}
+        <div className="absolute left-[-4px] top-1/2 -translate-y-1/2 w-2 h-2 bg-gray-900 rotate-45" />
+      </div>
+    </li>
+  );
+}
+
 function Sidebar({ isOpen, currentPage, onNavigate }) {
   return (
     <aside
@@ -20,27 +38,12 @@ function Sidebar({ isOpen, currentPage, onNavigate }) {
     >
       <nav className="flex-1 overflow-y-auto overflow-x-visible">
         <ul className="flex flex-col gap-2">
-          {navItems.map((item) => (
-            <li key={item.id} className="relative group">
-              <a
-                href={`#${item.id}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  onNavigate(item.id);
-                }}
-                className={`flex items-center gap-4 cursor-pointer px-4 py-3 md:px-0 md:justify-center lg:px-4 lg:justify-start rounded-lg ${currentPage === item.id ? 'active' : ''}`}
-              >
-                <span className="material-symbols-outlined text-[24px] shrink-0">{item.icon}</span>
-                <span className="md:hidden lg:block whitespace-nowrap">{item.label}</span>
-              </a>
-
-              {/* Tooltip for icon-only collapsed state (md) */}
-              <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 px-3 py-1.5 bg-gray-900 text-white text-sm font-semibold rounded-md opacity-0 invisible md:group-hover:opacity-100 md:group-hover:visible lg:hidden transition-all duration-200 z-50 whitespace-nowrap shadow-xl">
-                {item.label}
-                <div className="absolute left-[-4px] top-1/2 -translate-y-1/2 w-2 h-2 bg-gray-900 rotate-45" />
-              </div>
-            </li>
-          ))}
+          <NavItem id="dashboard" icon="dashboard" label="Dashboard" currentPage={currentPage} onNavigate={onNavigate} />
+          <NavItem id="creators" icon="group" label="Creators" currentPage={currentPage} onNavigate={onNavigate} />
+          <NavItem id="analytics" icon="analytics" label="Analytics" currentPage={currentPage} onNavigate={onNavigate} />
+          <NavItem id="posts" icon="article" label="Posts" currentPage={currentPage} onNavigate={onNavigate} />
+          <NavItem id="notifications" icon="notifications" label="Notifications" currentPage={currentPage} onNavigate={onNavigate} />
+          <NavItem id="settings" icon="settings" label="Settings" currentPage={currentPage} onNavigate={onNavigate} />
         </ul>
       </nav>
 
