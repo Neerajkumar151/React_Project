@@ -1,9 +1,8 @@
-import { useState } from 'react'
-import './App.css'
-import DashboardLayout from './components/DashboardLayout'
-import StatCard from './components/StatCard'
-import ComingSoon from './components/ComingSoon'
-import FeaturedCreators from './components/FeaturedCreators'
+import { useState } from 'react';
+import DashboardLayout from './components/DashboardLayout';
+import StatGrid from './components/StatGrid';
+import ComingSoon from './components/ComingSoon';
+import FeaturedCreators from './components/FeaturedCreators';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('dashboard');
@@ -20,15 +19,18 @@ function App() {
               Here is what's happening with your creator profile today.
             </p>
           </div>
-          
-          <StatCard/>
-          <FeaturedCreators />
+
+          <StatGrid />
+          <FeaturedCreators
+            onViewAll={() => setCurrentPage('creators')}
+            onViewProfile={(id) => console.log('View profile:', id)}
+          />
         </>
       ) : (
         <ComingSoon pageName={currentPage} onGoBack={() => setCurrentPage('dashboard')} />
       )}
     </DashboardLayout>
-  )
+  );
 }
 
-export default App
+export default App;

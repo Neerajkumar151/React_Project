@@ -2,8 +2,8 @@
   /* Premium Indigo Palette */
   --color-bg-main: #f8fafc;
   --color-bg-surface: #ffffff;
-  --color-bg-sidebar: rgb(53, 37, 205);
-  --color-bg-sidebar-hover: rgb(41, 28, 161);
+  --color-primary: rgb(53, 37, 205);
+  --color-primary-hover: rgb(41, 28, 161);
   
   --color-text-primary: #0f172a;
   --color-text-secondary: #64748b;
@@ -20,8 +20,8 @@
 [data-theme='dark'] {
   --color-bg-main: #0f172a;
   --color-bg-surface: #1e293b;
-  --color-bg-sidebar: rgb(79, 70, 229);
-  --color-bg-sidebar-hover: rgb(67, 56, 202);
+  --color-primary: rgb(79, 70, 229);
+  --color-primary-hover: rgb(67, 56, 202);
   
   --color-text-primary: #f8fafc;
   --color-text-secondary: #94a3b8;
@@ -90,12 +90,12 @@ body {
 
 .sidebar a:hover {
   background-color: var(--color-bg-main);
-  color: var(--color-bg-sidebar);
+  color: var(--color-primary);
 }
 
 .sidebar a.active {
   background-color: var(--color-text-inverse); /* Light indigo background */
-  color: var(--color-bg-sidebar);
+  color: var(--color-primary);
 }
 
 .sidebar a .material-symbols-outlined {
@@ -105,8 +105,8 @@ body {
 
 
 /* Custom Theme Utility Classes */
-.bg-primary { background-color: var(--color-bg-sidebar); }
-.text-primary { color: var(--color-bg-sidebar); }
+.bg-primary { background-color: var(--color-primary); }
+.text-primary { color: var(--color-primary); }
 .text-on-primary { color: var(--color-bg-surface); }
 
 /* Additional semantic variables */
@@ -115,7 +115,7 @@ body {
 .text-on-surface-variant { color: #4B5563; }
 
 .hover-text-primary:hover {
-  color: var(--color-bg-sidebar) !important;
+  color: var(--color-primary) !important;
 }
 
 /* Custom Animations */
@@ -148,7 +148,7 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--color-bg-sidebar), #ec4899);
+  background: linear-gradient(135deg, var(--color-primary), #ec4899);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -184,4 +184,9 @@ body {
     background-color: var(--color-bg-main);
   }
   /* The main container will be capped by the max-w-screen-2xl class we add in React */
+}
+
+/* Notification item hover — avoids inline onMouseOver JS handlers */
+.notif-item:hover {
+  background-color: var(--color-bg-main);
 }
